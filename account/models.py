@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.crypto import get_random_string
 
-from .tasks import send_activation_code
+from .tasks import send_activation_code, send_confirmation
 
 
 
@@ -20,6 +20,7 @@ class UserManager(BaseUserManager):
         user.create_activation_code()
         user.save(using=self._db)  # созраняем юзера в бд
         send_activation_code.delay(user.email, user.activation_code)
+        send_confirmation.delay(user.email)
         return user
 
     def create_superuser(self,username, email, password, phone, **kwargs):
