@@ -51,9 +51,8 @@ class Tiket(models.Model):
     flight_time = models.TextField()
     quantity = models.IntegerField()
 
-    def __str__(self) -> str:
-        return self.flight_name
-
+    def __str__(self):
+        return f"{self.flight_name} - {self.arrival.title}"
 
 
 

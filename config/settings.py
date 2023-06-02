@@ -201,6 +201,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:3001',
     'https://www.thunderclient.com',
-    'http://34.125.130.11'
+    'http://34.125.227.71',
 ]
 
