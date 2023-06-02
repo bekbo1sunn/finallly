@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from .models import Country, Category, Tiket, CategoryTikets
 from review.serializers import CommentSerializer
@@ -22,14 +23,20 @@ class CategorySerializer(ModelSerializer):
         fields = '__all__'
 
 
-class TiketSerializer(ModelSerializer):
+
+
+class TiketSerializer(serializers.ModelSerializer):
+    arrival = serializers.CharField(source='arrival.title')
+    category = serializers.CharField(source='category.name')
+
     class Meta:
         model = Tiket
-        fields = '__all__'
+        fields = ['id', 'flight_name', 'departure_date', 'arrival_date', 'price', 'flight_time', 'quantity', 'category', 'arrival', ]
 
 
-class CategoryTiketsSerializer(ModelSerializer):
+class CategoryTiketsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryTikets
-        fields = '__all__'
+        fields = ['name', 'id',  'baggage', 'hand_luggage', 'nutrtion', 'exchange_return', 'preferred_seat_selection', 'business_lounge', 'separate_landing', 'separate_reception_desk']
+
 
