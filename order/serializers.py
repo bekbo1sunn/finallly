@@ -8,7 +8,6 @@ class OrderItemSerializer(ModelSerializer):
 	class Meta:
 		model = OrderItem
 		exclude = ("order",)
-		
 
 
 class OrderSerializer(WritableNestedModelSerializer, ModelSerializer):
@@ -31,4 +30,3 @@ class OrderSerializer(WritableNestedModelSerializer, ModelSerializer):
 			if item["quantity"] > item["tiket"].quantity:
 				raise ValidationError("not enough products")
 		return items
-	

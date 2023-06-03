@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
-from .models import Country, Category, Tiket, CategoryTikets
+from .models import Country, Category, Tiket, CategoryTikets, BankCard
 from review.serializers import CommentSerializer
 
 
@@ -37,6 +37,11 @@ class TiketSerializer(serializers.ModelSerializer):
 class CategoryTiketsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryTikets
-        fields = ['name', 'id',  'baggage', 'hand_luggage', 'nutrtion', 'exchange_return', 'preferred_seat_selection', 'business_lounge', 'separate_landing', 'separate_reception_desk']
+        fields = ['id', 'name', 'baggage', 'hand_luggage', 'nutrtion', 'exchange_return', 'preferred_seat_selection', 'business_lounge', 'separate_landing', 'separate_reception_desk']
 
 
+
+class BankCardSerializer(ModelSerializer):
+    class Meta:
+        model = BankCard
+        fields = '__all__'

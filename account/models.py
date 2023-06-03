@@ -64,6 +64,14 @@ class Billing(models.Model):
         on_delete=models.CASCADE,
         related_name='billing'
     )
+    name = models.CharField(max_length=20)
+    surname = models.TextField()
+    mail = models.EmailField()
+    phone = models.CharField(max_length=50)
+    card_number = models.CharField(max_length=16)
+    cardholder_name = models.TextField()
+    validity = models.DateField()
+    cvv = models.CharField(max_length=3)
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def top_up(self, amount):

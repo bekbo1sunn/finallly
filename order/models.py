@@ -1,17 +1,14 @@
 from django.db import models
 from account.models import User
-from main.models import Country, Tiket
+from main.models import Tiket
 
 
 class Order(models.Model):
-	name = models.CharField(max_length=20)
-	surname = models.TextField()
-	mail = models.EmailField()
-	phone = models.CharField(max_length=50)
-	card_number = models.CharField(max_length=16)
-	cardholder_name = models.TextField()
-	validity = models.DateField()
-	cvv = models.CharField(max_length=3)
+	user = models.ForeignKey(
+		User,
+		on_delete=models.CASCADE,
+		related_name='orders'
+	)
 	is_paid = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 
@@ -21,7 +18,6 @@ class Order(models.Model):
 		if items.exists():
 			return sum([item.tiket.price * item.quantity for item in items])
 		return 0
-        
 
 
 class OrderItem(models.Model):
@@ -32,7 +28,6 @@ class OrderItem(models.Model):
 	)
 	tiket = models.ForeignKey(
 		Tiket,
-		on_delete=models.CASCADE
+		on_delete=models.RESTRICT
 	)
 	quantity = models.PositiveIntegerField(default=1)
-	

@@ -7,8 +7,8 @@ from rest_framework.parsers import MultiPartParser
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 
-from .models import Country, Category, Tiket, CategoryTikets
-from .serializers import CountrySerializer, CategorySerializer, TiketSerializer, CategoryTiketsSerializer
+from .models import Country, Category, Tiket, CategoryTikets, BankCard
+from .serializers import CountrySerializer, CategorySerializer, TiketSerializer, CategoryTiketsSerializer, BankCardSerializer
 
 
 class CountryViewSet(mixins.CreateModelMixin,
@@ -25,7 +25,7 @@ class CountryViewSet(mixins.CreateModelMixin,
     search_fields = ('title', 'description')
 
 
-class CountryListCreateAPIView(ListAPIView):
+class CountryListAPIView(ListAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     parser_classes = [MultiPartParser]
@@ -56,14 +56,15 @@ class TiketViewSet(mixins.CreateModelMixin,
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
-    filter_backends = (SearchFilter, DjangoFilterBackend)
-    filterset_fields = ('arrival',)
-    search_fields = ('arrival', 'category',)
+    
     
 
 class TiketListAPIView(ListAPIView):
     queryset = Tiket.objects.all()
     serializer_class = TiketSerializer
+    filter_backends = (SearchFilter, DjangoFilterBackend)
+    filterset_fields = ('arrival', 'category',)
+    search_fields = ('arrival', 'category',)
     
 
 
@@ -76,3 +77,12 @@ class CategoryTiketsViewSet(mixins.CreateModelMixin,
     queryset = CategoryTikets.objects.all()
     serializer_class = CategoryTiketsSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+
+
+class BankCardViewSet(mixins.CreateModelMixin,
+                      mixins.ListModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.DestroyModelMixin,
+                      GenericViewSet):
+    queryset = BankCard.objects.all()
+    serializer_class = BankCardSerializer

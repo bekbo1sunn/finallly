@@ -58,4 +58,17 @@ class Tiket(models.Model):
 
 
 
+class BankCard(models.Model):
+    """Не обращайте на это внимание, нас просто фронты попросили сделать это"""
+    name = models.CharField(max_length=20)
+    surname = models.TextField()
+    mail = models.EmailField()
+    phone = models.CharField(max_length=50)
+    card_number = models.CharField(max_length=16)
+    cardholder_name = models.TextField()
+    validity = models.DateField()
+    cvv = models.CharField(max_length=3)
+
+    def __str__(self) -> str:
+        return self.name
     
