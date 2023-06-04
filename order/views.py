@@ -24,4 +24,4 @@ class OrderViewSet(ModelViewSet):
 		if order.user.billing.withdraw(order.total_price):
 			order.is_paid = True
 			order.save()
-			return Response(status=200)
+			return Response("Заказ оплачен", status=200)
