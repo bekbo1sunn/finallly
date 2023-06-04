@@ -21,14 +21,15 @@ class CountryViewSet(mixins.CreateModelMixin,
     parser_classes = [MultiPartParser]
     permission_classes = [IsAuthenticated, IsAdminUser]
     filter_backends = (SearchFilter, DjangoFilterBackend)
-    filterset_fields = ('title',)
-    search_fields = ('title', 'description')
+    
 
 
 class CountryListAPIView(ListAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     parser_classes = [MultiPartParser]
+    filterset_fields = ('title',)
+    search_fields = ('title', 'description')
 
 
 
